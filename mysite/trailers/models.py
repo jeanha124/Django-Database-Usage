@@ -8,13 +8,13 @@ class Trailer(models.Model):
 	vin_num = models.CharField(max_length=20, blank=True, null=True)
 	license_num = models.CharField(max_length=6, blank=True, null=True)
 	length = models.CharField(max_length=15, blank=True, null=True)
-	year = models.IntegerField(blank=True, null=True)
+	year = models.CharField(max_length=4, blank=True, null=True)
 	manufacturer = models.CharField(max_length=10, blank=True, null=True)
 	reg_date = models.CharField(max_length=8, blank=True, null=True)
 
 	# House-keeping
-	create_datetime = models.DateTimeField('Create Datetime', default=timezone.now(), auto_now_add=True)
-	update_datetime = models.DateTimeField('Update Datetime', default=timezone.now(), auto_now=True)
+	create_datetime = models.DateTimeField('Create Datetime', auto_now_add=True)
+	update_datetime = models.DateTimeField('Update Datetime', auto_now=True)
 	is_active = models.BooleanField('Is Active', default=True)
 
 	def __str__(self):
@@ -25,8 +25,8 @@ class Driver(models.Model):
 	first_name = models.CharField(max_length=20)
 
 	# House-keeping
-	create_datetime = models.DateTimeField('Create Datetime', default=timezone.now(), auto_now_add=True)
-	update_datetime = models.DateTimeField('Update Datetime', default=timezone.now(), auto_now=True)
+	create_datetime = models.DateTimeField('Create Datetime', auto_now_add=True)
+	update_datetime = models.DateTimeField('Update Datetime', auto_now=True)
 	is_active = models.BooleanField('Is Active', default=True)
 
 	def __str__(self):
@@ -43,8 +43,8 @@ class Location(models.Model):
 	phone = models.CharField('Phone Number', blank=True, null=True, max_length=16)
 
 	# House-keeping
-	create_datetime = models.DateTimeField('Create Datetime', default=timezone.now(), auto_now_add=True)
-	update_datetime = models.DateTimeField('Update Datetime', default=timezone.now(), auto_now=True)
+	create_datetime = models.DateTimeField('Create Datetime', auto_now_add=True)
+	update_datetime = models.DateTimeField('Update Datetime', auto_now=True)
 	is_active = models.BooleanField('Is Active', default=True)
 
 	def __str__(self):
@@ -62,16 +62,20 @@ class VisitedLocation(models.Model):
 		(END, 'end')
 	)
 
-	location = models.OneToOneField(Location)
-	driver = models.OneToOneField(Driver)
+	location = models.ForeignKey(Location)
+	driver = models.ForeignKey(Driver)
 	type = models.PositiveIntegerField('Visited Location Type', choices=location_types)
-	trailer = models.OneToOneField(Trailer)
+	trailer = models.ForeignKey(Trailer)
 	visited_datetime = models.DateTimeField('Location Visit Datetime')
 
 	# House-keeping
-	create_datetime = models.DateTimeField('Create Datetime', default=timezone.now(), auto_now_add=True)
-	update_datetime = models.DateTimeField('Update Datetime', default=timezone.now(), auto_now=True)
+	create_datetime = models.DateTimeField('Create Datetime', auto_now_add=True)
+	update_datetime = models.DateTimeField('Update Datetime', auto_now=True)
 	is_active = models.BooleanField('Is Active', default=True)
 
 	def __str__(self):
-		return "{location} - {trailer}".format(location=self.location.name, trailer=self.trailer.trailer_index)
+		return "{type} - {trailer} - {location}".format(
+			location=self.location.name,
+			trailer=self.trailer.trailer_index,
+			type=dict(self.location_types).get(self.type)
+		)
