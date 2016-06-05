@@ -48,6 +48,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -77,14 +78,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mydb',
-        'USER': 'mydb_user',
-        'PASSWORD': 'your_password',
-        'HOST': '',
-        'PORT': '',
+        'NAME': 'RSDTrailers',
+	'USER': 'Jeanwoo',
+	'PASSWORD': 'jh012490',
+	'HOST': 'localhost',
+	'PORT': '5000'
     }
 }
-
 
 
 # Internationalization
