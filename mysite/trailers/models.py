@@ -6,7 +6,7 @@ class Trailer(models.Model):
 	trailer_index = models.CharField(max_length=10, unique=True)
 	owner = models.CharField(max_length=10, blank=True, null=True)
 	vin_num = models.CharField(max_length=20, blank=True, null=True)
-	license_num = models.CharField(max_length=6, blank=True, null=True)
+	license_num = models.CharField(max_length=50, blank=True, null=True)
 	length = models.CharField(max_length=15, blank=True, null=True)
 	year = models.CharField(max_length=4, blank=True, null=True)
 	manufacturer = models.CharField(max_length=10, blank=True, null=True)
