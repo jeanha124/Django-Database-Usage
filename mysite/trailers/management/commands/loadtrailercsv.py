@@ -4,6 +4,7 @@ from django.conf import settings
 from trailers.models import Trailer
 from django.core.management.base import BaseCommand
 
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -20,7 +21,7 @@ class Command(BaseCommand):
                     vin_num=row['VIN #'],
                     license_num=row['License #'],
                     length=row['Length'],
-                    year=row['Year'],
+                    year=str(row['Year']),
                     manufacturer=row['Manufacturer'],
                     reg_date=row['Reg Date']
                 )

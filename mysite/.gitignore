@@ -83,3 +83,5 @@ share
 
 # OS X
 .DS_Store
+
+*.ignore
