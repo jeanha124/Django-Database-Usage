@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.forms import ModelForm
 
 # Create your models here.
 class Trailer(models.Model):
@@ -62,10 +63,10 @@ class VisitedLocation(models.Model):
 		(END, 'end')
 	)
 
-	location = models.ForeignKey(Location)
-	driver = models.ForeignKey(Driver)
-	type = models.PositiveIntegerField('Visited Location Type', choices=location_types)
 	trailer = models.ForeignKey(Trailer)
+	driver = models.ForeignKey(Driver)
+	location = models.ForeignKey(Location)
+	type = models.PositiveIntegerField('Visited Location Type', choices=location_types)
 	visited_datetime = models.DateTimeField('Location Visit Datetime')
 
 	# House-keeping
@@ -79,3 +80,8 @@ class VisitedLocation(models.Model):
 			trailer=self.trailer.trailer_index,
 			type=dict(self.location_types).get(self.type)
 		)
+
+	class VisitedLocationForm(models.Model):
+		class Meta:
+			model = VisitedLocation
+			fields = ['trailer', 'driver', 'location', 'location_types.0', 'location' , 'location_types.1', 'location', 'location_types.2', 'visited_datetime']		
