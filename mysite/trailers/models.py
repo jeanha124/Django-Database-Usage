@@ -24,6 +24,7 @@ class Trailer(models.Model):
 
 class Driver(models.Model):
 	first_name = models.CharField(max_length=20)
+	last_name = models.CharField(max_length=20, blank=True, null=True)
 
 	# House-keeping
 	create_datetime = models.DateTimeField('Create Datetime', auto_now_add=True)
@@ -67,6 +68,7 @@ class VisitedLocation(models.Model):
 	driver = models.ForeignKey(Driver)
 	location = models.ForeignKey(Location)
 	type = models.PositiveIntegerField('Visited Location Type', choices=location_types)
+	comments = models.TextField(blank=True)
 	visited_datetime = models.DateTimeField('Location Visit Datetime')
 
 	# House-keeping
