@@ -8,7 +8,4 @@ class VisitedLocationForm(forms.ModelForm):
         fields = [
         'trailer',
         'driver',
-        'location', 'location_types.0',
-        'location' , 'location_types.1',
-        'location', 'location_types.2',
-        'visited_datetime']		
+        'visited_datetime']

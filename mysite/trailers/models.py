@@ -80,8 +80,3 @@ class VisitedLocation(models.Model):
 			trailer=self.trailer.trailer_index,
 			type=dict(self.location_types).get(self.type)
 		)
-
-	class VisitedLocationForm(models.Model):
-		class Meta:
-			model = VisitedLocation
-			fields = ['trailer', 'driver', 'location', 'location_types.0', 'location' , 'location_types.1', 'location', 'location_types.2', 'visited_datetime']		
